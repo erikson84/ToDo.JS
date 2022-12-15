@@ -51,7 +51,7 @@ const changeDueTodoItem = (todoItem: TodoItem, dueDate: Date): TodoItem => {
 };
 
 export {
-    Priority as priority,
+    Priority,
     TodoItem,
     TodoList,
     todoItemFactory,
