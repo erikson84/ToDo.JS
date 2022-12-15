@@ -10,7 +10,7 @@ const stylesHandler = 'style-loader';
 
 
 const config = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "main.js",
@@ -18,6 +18,10 @@ const config = {
     devServer: {
         open: true,
         host: 'localhost',
+    },
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
     },
     module: {
         rules: [
@@ -29,7 +33,10 @@ const config = {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
             },
-
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            { test: /\.tsx?$/, loader: "ts-loader" },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { test: /\.js$/, loader: "source-map-loader" },
             // Add your rules for custom modules here
             // Learn more about loaders from https://webpack.js.org/loaders/
         ],

@@ -20,6 +20,7 @@ type todoItem = {
     description: string;
     dueDate: Date;
     priority: priority;
+    done: boolean;
     checklist?: checklist;
     note?: notes;
 };
@@ -32,3 +33,26 @@ type project = {
     todoList: todoList;
 };
 
+const todoItemFactory = (title: string,
+                         description: string,
+                         dueDate: Date,
+                         priority: priority,
+                         done: boolean,
+                         checklist?: checklist,
+                         note?: notes): todoItem => {
+    
+    
+    return {
+        title,
+        description,
+        dueDate,
+        priority,
+        done,
+        checklist,
+        note,
+    }
+};
+
+const testTodoList = todoItemFactory('Tarefa 1', 'Fazer a tarefa um.', new Date(), 'normal', false);
+
+console.log(testTodoList);
