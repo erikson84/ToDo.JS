@@ -7,15 +7,16 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/index.js":
+/***/ "./src/index.ts":
 /*!**********************!*\
-  !*** ./src/index.js ***!
+  !*** ./src/index.ts ***!
   \**********************/
 /***/ (() => {
 
-eval("console.log(\"Hello World!\");\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.js?");
+eval("\r\nconst todoItemFactory = (title, description, dueDate, priority, done, checklist, note) => {\r\n    return {\r\n        title,\r\n        description,\r\n        dueDate,\r\n        priority,\r\n        done,\r\n        checklist,\r\n        note,\r\n    };\r\n};\r\nconst testTodoList = todoItemFactory('Tarefa 1', 'Fazer a tarefa um.', new Date(), 'normal', false);\r\nconsole.log(testTodoList);\r\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.ts?");
 
 /***/ })
 
@@ -26,7 +27,7 @@ eval("console.log(\"Hello World!\");\n\n\n//# sourceURL=webpack://my-webpack-pro
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/index.js"]();
+/******/ 	__webpack_modules__["./src/index.ts"]();
 /******/ 	
 /******/ })()
 ;
