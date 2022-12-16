@@ -16,7 +16,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst project_1 = __webpack_require__(/*! ./modules/project */ \"./src/modules/project.ts\");\nconst todoDOM_1 = __webpack_require__(/*! ./modules/todoDOM */ \"./src/modules/todoDOM.ts\");\nconst defaultProject = (0, project_1.projectFactory)(\"Default\");\ntodoDOM_1.documentElements.button.addEventListener(\"click\", () => {\n    if (!todoDOM_1.documentElements.titleInput.value)\n        return;\n    const newItem = (0, todoDOM_1.buildItem)();\n    defaultProject.todoList.push(newItem);\n    (0, todoDOM_1.updateListDOM)(defaultProject);\n});\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst project_1 = __webpack_require__(/*! ./modules/project */ \"./src/modules/project.ts\");\nconst todoDOM_1 = __webpack_require__(/*! ./modules/todoDOM */ \"./src/modules/todoDOM.ts\");\nconst defaultProject = (0, project_1.projectFactory)(\"Default\");\ntodoDOM_1.documentElements.button.addEventListener(\"click\", () => {\n    if (!todoDOM_1.documentElements.titleInput.value)\n        return;\n    const newItem = (0, todoDOM_1.buildItem)();\n    defaultProject.todoList.push(newItem);\n    (0, todoDOM_1.updateListDOM)(defaultProject);\n    todoDOM_1.documentElements.titleInput.value = \"\";\n});\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.ts?");
 
 /***/ }),
 
