@@ -9,4 +9,5 @@ documentElements.button.addEventListener("click", () => {
     const newItem = buildItem();
     defaultProject.todoList.push(newItem);
     updateListDOM(defaultProject);
+    documentElements.titleInput.value = "";
 });
