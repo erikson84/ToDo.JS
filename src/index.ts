@@ -20,16 +20,13 @@ import { Note, NoteList, noteFactory } from "./modules/notes";
 
 import { Project, projectFactory } from "./modules/project";
 
-let testTodoList: TodoList = [
-    todoItemFactory(
-        "Tarefa 1",
-        "Fazer a tarefa um.",
-        new Date(),
-        "normal",
-        false
-    ),
-];
+import {documentElements, buildItem, updateListDOM} from "./modules/todoDOM";
 
-console.log(testTodoList);
+const defaultProject = projectFactory("Default");
 
-console.log(toggleTodoItem(testTodoList[0]));
+documentElements.button.addEventListener("click", () => {
+    if (!documentElements.titleInput.value) return
+    const newItem = buildItem();
+    defaultProject.todoList.push(newItem);
+    updateListDOM(defaultProject);
+})

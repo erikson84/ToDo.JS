@@ -8,7 +8,7 @@ type Project = {
 
 const projectFactory = (
     title: string,
-    todoList: TodoList,
+    todoList: TodoList = [],
     description?: string
 ): Project => {
     return {
