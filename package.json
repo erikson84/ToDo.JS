@@ -32,5 +32,8 @@
   },
   "prettier": {
     "tabWidth": 4
+  },
+  "dependencies": {
+    "g": "^2.0.1"
   }
 }
