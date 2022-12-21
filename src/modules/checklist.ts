@@ -2,6 +2,11 @@ type ChecklistItem = {
     description: string;
     done: boolean;
     dueDate?: Date;
+    toggleChecklistItem: (checklist: ChecklistItem) => ChecklistItem;
+    updateChecklistDate: (
+        checklist: ChecklistItem,
+        dueDate: Date
+    ) => ChecklistItem;
 };
 
 type Checklist = Array<ChecklistItem>;
@@ -15,26 +20,24 @@ const checklistItemFactory = (
         description,
         done,
         dueDate,
+        toggleChecklistItem,
+        updateChecklistDate,
     };
 };
 
 const toggleChecklistItem = (checklistItem: ChecklistItem): ChecklistItem => {
-    checklistItem.done = !checklistItem.done;
-    return checklistItem;
+    const newChecklistItem = { ...checklistItem };
+    newChecklistItem.done = !newChecklistItem.done;
+    return newChecklistItem;
 };
 
-const changeChecklistDate = (
+const updateChecklistDate = (
     checklistItem: ChecklistItem,
     dueDate: Date
 ): ChecklistItem => {
-    checklistItem.dueDate = dueDate;
-    return checklistItem;
+    const newChecklistItem = { ...checklistItem };
+    newChecklistItem.dueDate = dueDate;
+    return newChecklistItem;
 };
 
-export {
-    ChecklistItem,
-    Checklist,
-    checklistItemFactory,
-    toggleChecklistItem,
-    changeChecklistDate,
-};
+export { ChecklistItem, Checklist, checklistItemFactory };

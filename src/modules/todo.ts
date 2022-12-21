@@ -1,5 +1,5 @@
 import { Checklist } from "./checklist";
-import { NoteList } from "./notes";
+import { Note, noteFactory } from "./notes";
 
 type Priority = "high" | "normal" | "low";
 
@@ -10,7 +10,7 @@ type TodoItem = {
     priority: Priority;
     done: boolean;
     checklist: Checklist;
-    notes: NoteList;
+    notes: Note;
 };
 
 type TodoList = Array<TodoItem>;
@@ -22,7 +22,7 @@ const todoItemFactory = (
     priority: Priority = "normal",
     done: boolean = false,
     checklist: Checklist = [],
-    notes: NoteList = []
+    notes: Note = noteFactory("")
 ): TodoItem => {
     return {
         title,
