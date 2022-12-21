@@ -50,6 +50,17 @@ const changeDueTodoItem = (todoItem: TodoItem, dueDate: Date): TodoItem => {
     return todoItem;
 };
 
+const addItem = (todoItem: TodoItem, todoList: TodoList): TodoList => {
+    const newList = todoList.concat([todoItem]);
+    return newList;
+};
+
+const removeItem = (idx: number, todoList: TodoList): TodoList => {
+    const newList = [...todoList];
+    newList.splice(idx, 1);
+    return newList;
+};
+
 export {
     Priority,
     TodoItem,
@@ -58,4 +69,6 @@ export {
     toggleTodoItem,
     changePriority,
     changeDueTodoItem,
+    addItem,
+    removeItem,
 };

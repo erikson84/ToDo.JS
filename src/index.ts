@@ -1,13 +1,13 @@
 import { projectFactory } from "./modules/project";
+import { TodoItem } from "./modules/todo";
+import {
+    documentElements,
+    buildItem,
+    updateListDOM,
+    addItemToProject,
+    controller,
+} from "./modules/todoDOM";
 
-import { documentElements, buildItem, updateListDOM } from "./modules/todoDOM";
+const stateProject = projectFactory("Default");
 
-const defaultProject = projectFactory("Default");
-
-documentElements.button.addEventListener("click", () => {
-    if (!documentElements.titleInput.value) return;
-    const newItem = buildItem();
-    defaultProject.todoList.push(newItem);
-    updateListDOM(defaultProject);
-    documentElements.titleInput.value = "";
-});
+controller(stateProject);
