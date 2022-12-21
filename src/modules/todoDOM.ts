@@ -31,9 +31,7 @@ const removeItemFromProject = (project: Project, e: MouseEvent): Project => {
 
 const addItemToProject = (project: Project, todoItem: TodoItem): Project => {
     const stateProject: Project = { ...project };
-    console.log(stateProject.todoList);
     stateProject.todoList = addItem(todoItem, stateProject.todoList);
-    console.log(stateProject.todoList);
     return stateProject;
 };
 
