@@ -24,14 +24,18 @@ const removeItemFromProject = (project: Project, e: MouseEvent): Project => {
     const originDiv: HTMLElement = e.composedPath()[1] as HTMLElement;
     const idx: string | undefined = originDiv.dataset.index;
     if (!idx) return project;
-    const newProject = { ...project };
-    newProject.todoList = removeItem(+idx, newProject.todoList);
+    const newProject: Project = {
+        ...project,
+        todoList: removeItem(+idx, project.todoList),
+    };
     return newProject;
 };
 
 const addItemToProject = (project: Project, todoItem: TodoItem): Project => {
-    const stateProject: Project = { ...project };
-    stateProject.todoList = addItem(todoItem, stateProject.todoList);
+    const stateProject: Project = {
+        ...project,
+        todoList: addItem(todoItem, project.todoList),
+    };
     return stateProject;
 };
 

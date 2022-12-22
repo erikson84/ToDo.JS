@@ -36,18 +36,15 @@ const todoItemFactory = (
 };
 
 const toggleTodoItem = (todoItem: TodoItem): TodoItem => {
-    todoItem.done = !todoItem.done;
-    return todoItem;
+    return { ...todoItem, done: !todoItem.done };
 };
 
 const changePriority = (todoItem: TodoItem, priority: Priority): TodoItem => {
-    todoItem.priority = priority;
-    return todoItem;
+    return { ...todoItem, priority: priority };
 };
 
 const changeDueTodoItem = (todoItem: TodoItem, dueDate: Date): TodoItem => {
-    todoItem.dueDate = dueDate;
-    return todoItem;
+    return { ...todoItem, dueDate: dueDate };
 };
 
 const addItem = (todoItem: TodoItem, todoList: TodoList): TodoList => {
