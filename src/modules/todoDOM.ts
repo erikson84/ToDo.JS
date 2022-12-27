@@ -20,19 +20,6 @@ const buildItem = (): TodoItem => {
     );
 };
 
-const removeElementFromList = (todoList: TodoList, e: MouseEvent): TodoList => {
-    const originDiv: HTMLElement = e.composedPath()[1] as HTMLElement;
-    const idx: string | undefined = originDiv.dataset.index;
-    if (!idx) return todoList;
-    const stateList: TodoList = removeItem(+idx, todoList);
-    return stateList;
-};
-
-const addElementToList = (todoList: TodoList, todoItem: TodoItem): TodoList => {
-    const stateList: TodoList = addItem(todoItem, todoList);
-    return stateList;
-};
-
 const generateItem = (
     todoList: TodoList,
     todoItem: TodoItem,
@@ -47,7 +34,7 @@ const generateItem = (
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "✖";
     deleteButton.addEventListener("click", (ev: MouseEvent): void => {
-        const stateList = removeElementFromList(todoList, ev);
+        const stateList = removeItem(index, todoList);
         controller(stateList);
     });
     container.appendChild(deleteButton);
@@ -70,17 +57,10 @@ const controller = (todoList: TodoList): void => {
     documentElements.button.onclick = () => {
         if (!documentElements.titleInput.value) return;
         const newItem: TodoItem = buildItem();
-        const stateList: TodoList = addElementToList(todoList, newItem);
+        const stateList: TodoList = addItem(newItem, todoList);
         documentElements.titleInput.value = "";
         controller(stateList);
     };
 };
 
-export {
-    documentElements,
-    buildItem,
-    updateListDOM,
-    addElementToList,
-    removeElementFromList,
-    controller,
-};
+export { documentElements, buildItem, updateListDOM, controller };
