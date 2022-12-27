@@ -5,6 +5,8 @@ import {
     addItem,
     removeItem,
     applyFieldFunction,
+    applyItemFunction,
+    toggleItem,
 } from "./todoModel";
 
 const documentElements = {
@@ -26,12 +28,26 @@ const generateItem = (
     index: number
 ): HTMLElement => {
     const container = document.createElement("div");
+    container.classList.add("itemList");
     container.dataset.index = index.toString();
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = todoItem.done;
+    checkbox.name = "checkbox" + index;
+    if (todoItem.done) container.classList.add("checkItem");
+    checkbox.addEventListener("change", (ev: Event): void => {
+        const stateList = applyItemFunction(index, toggleItem, todoList);
+        controller(stateList);
+    });
+    container.appendChild(checkbox);
+
     const itemText = document.createElement("span");
-    itemText.textContent = todoItem.title;
+    itemText.appendChild(document.createTextNode(todoItem.title));
     container.appendChild(itemText);
 
     const deleteButton = document.createElement("button");
+    deleteButton.classList.add("deleteButton");
     deleteButton.textContent = "✖";
     deleteButton.addEventListener("click", (ev: MouseEvent): void => {
         const stateList = removeItem(index, todoList);
@@ -54,12 +70,21 @@ const controller = (todoList: TodoList): void => {
     updateListDOM(todoList).forEach((el) =>
         documentElements.list.appendChild(el)
     );
-    documentElements.button.onclick = () => {
-        if (!documentElements.titleInput.value) return;
+
+    const updateState = () => {
         const newItem: TodoItem = buildItem();
         const stateList: TodoList = addItem(newItem, todoList);
         documentElements.titleInput.value = "";
         controller(stateList);
+    };
+
+    documentElements.button.onclick = () => {
+        if (!documentElements.titleInput.value) return;
+        updateState();
+    };
+    documentElements.titleInput.onkeyup = (e) => {
+        if (!documentElements.titleInput.value || e.key != "Enter") return;
+        updateState();
     };
 };
 
