@@ -2,7 +2,7 @@ html,
 body {
     margin: 0;
     border: 0;
-    background-image: linear-gradient(0.25turn, #94a3b8, #1e293b);
+    background-image: linear-gradient(0.96turn, #94a3b8, #1e293b);
     height: 100vh;
 }
 
@@ -13,10 +13,21 @@ body {
     justify-content: center;
 }
 
+head {
+    flex: 1 1 auto;
+}
+
+h1 {
+    color: #f5f5f5;
+}
+
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    outline: 1px solid black;
 }
 
 div#list {
@@ -24,26 +35,16 @@ div#list {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background-color: white;
-    border-radius: 5px;
     width: 60vw;
-    min-height: 50vh;
+    min-height: 35px;
 }
 
 .itemList:first-child {
-    border-radius: 5px 5px 0 0;
-}
-
-.itemList:last-child {
-    border-radius: 0 0 5px 5px;
+    border-radius: 2px 2px 0 0;
 }
 
 .itemList:nth-child(n + 2) {
     border-top: 0;
-}
-
-.itemList:only-child {
-    border-radius: 5px;
 }
 
 .itemList {
@@ -53,12 +54,14 @@ div#list {
     align-items: center;
     margin: 0;
     font-size: large;
-    border: 2px solid black;
+    border: 2px solid slategray;
     padding: 5px;
     max-height: 37px;
 }
 
 .itemList > span {
+    flex: 1;
+    text-align: center;
     word-break: break-all;
     word-wrap: break-word;
 }
@@ -90,10 +93,26 @@ div#list {
     transform: scale(0.9);
 }
 
-div#add {
-    margin: 5px;
+input[type="checkbox"] {
+    margin: 0px 10px;
+    transform: scale(1.5);
 }
 
-input[type="checkbox"] {
-    transform: scale(1.5);
+div#add {
+    display: flex;
+    width: 60vw;
+    height: 38px;
+    border-radius: 2px;
+}
+
+input#title {
+    flex: 4;
+    margin: 0;
+    border-bottom-left-radius: 2px;
+}
+
+button#add {
+    flex: 1;
+    margin: 0;
+    border-bottom-right-radius: 2px;
 }
