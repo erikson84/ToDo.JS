@@ -1,4 +1,4 @@
-import { TodoList } from "./todo";
+import { TodoList } from "./todoModel";
 
 type Project = {
     title: string;

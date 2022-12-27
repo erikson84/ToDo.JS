@@ -5,7 +5,7 @@ import {
     todoItemFactory,
     addItem,
     removeItem,
-} from "./todo";
+} from "./todoModel";
 
 const documentElements = {
     list: document.getElementById("list") as HTMLElement,

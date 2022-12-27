@@ -1,5 +1,5 @@
 import { projectFactory } from "./modules/project";
-import { TodoItem } from "./modules/todo";
+import { TodoItem } from "./modules/todoModel";
 import {
     documentElements,
     buildItem,
