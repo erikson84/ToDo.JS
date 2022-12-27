@@ -1,0 +1,93 @@
+html,
+body {
+    margin: 0;
+    border: 0;
+    background-image: linear-gradient(#94a3b8, #1e293b);
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div#list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.itemList:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.itemList:last-child {
+    border-radius: 0 0 5px 5px;
+}
+
+.itemList:nth-child(n + 2) {
+    margin-top: 5px;
+}
+
+.itemList:only-child {
+    border-radius: 5px;
+}
+
+.itemList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    font-size: large;
+    outline: 2px solid black;
+    padding: 5px;
+}
+
+.itemList > span {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.checkItem {
+    background-color: gainsboro;
+}
+.checkItem > span {
+    color: grey;
+    text-decoration-line: line-through;
+}
+
+.deleteButton {
+    border: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: #475569;
+    color: white;
+    transition: 20ms;
+}
+
+.deleteButton:hover {
+    background-color: #334155;
+}
+
+.deleteButton:active {
+    background-color: #64748b;
+    transform: scale(0.9);
+}
+
+div#add {
+    margin: 5px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
