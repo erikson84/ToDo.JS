@@ -2,7 +2,7 @@ html,
 body {
     margin: 0;
     border: 0;
-    background-image: linear-gradient(#94a3b8, #1e293b);
+    background-image: linear-gradient(0.25turn, #94a3b8, #1e293b);
     height: 100vh;
 }
 
@@ -22,7 +22,12 @@ main {
 div#list {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: white;
+    border-radius: 5px;
+    width: 60vw;
+    min-height: 50vh;
 }
 
 .itemList:first-child {
@@ -34,7 +39,7 @@ div#list {
 }
 
 .itemList:nth-child(n + 2) {
-    margin-top: 5px;
+    border-top: 0;
 }
 
 .itemList:only-child {
@@ -42,14 +47,15 @@ div#list {
 }
 
 .itemList {
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin: 0px;
+    margin: 0;
     font-size: large;
-    outline: 2px solid black;
+    border: 2px solid black;
     padding: 5px;
+    max-height: 37px;
 }
 
 .itemList > span {
