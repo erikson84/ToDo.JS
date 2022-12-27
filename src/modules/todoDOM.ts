@@ -4,8 +4,6 @@ import {
     todoItemFactory,
     addItem,
     removeItem,
-    Project,
-    ProjectList,
     applyFieldFunction,
 } from "./todoModel";
 
@@ -22,29 +20,21 @@ const buildItem = (): TodoItem => {
     );
 };
 
-const removeElementFromProject = (project: Project, e: MouseEvent): Project => {
+const removeElementFromList = (todoList: TodoList, e: MouseEvent): TodoList => {
     const originDiv: HTMLElement = e.composedPath()[1] as HTMLElement;
     const idx: string | undefined = originDiv.dataset.index;
-    if (!idx) return project;
-    const stateProject: Project = applyFieldFunction(
-        "todoList",
-        (x) => removeItem(+idx, x),
-        project
-    );
-    return stateProject;
+    if (!idx) return todoList;
+    const stateList: TodoList = removeItem(+idx, todoList);
+    return stateList;
 };
 
-const addElementToProject = (project: Project, todoItem: TodoItem): Project => {
-    const stateProject: Project = applyFieldFunction(
-        "todoList",
-        (x) => addItem(todoItem, x),
-        project
-    );
-    return stateProject;
+const addElementToList = (todoList: TodoList, todoItem: TodoItem): TodoList => {
+    const stateList: TodoList = addItem(todoItem, todoList);
+    return stateList;
 };
 
 const generateItem = (
-    project: Project,
+    todoList: TodoList,
     todoItem: TodoItem,
     index: number
 ): HTMLElement => {
@@ -57,35 +47,32 @@ const generateItem = (
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "✖";
     deleteButton.addEventListener("click", (ev: MouseEvent): void => {
-        const stateProject = removeElementFromProject(project, ev);
-        controller([stateProject]);
+        const stateList = removeElementFromList(todoList, ev);
+        controller(stateList);
     });
     container.appendChild(deleteButton);
 
     return container;
 };
 
-const updateListDOM = (project: Project): Array<HTMLElement> => {
-    const out = project.todoList.map(
-        (val: TodoItem, idx: number): HTMLElement => {
-            return generateItem(project, val, idx);
-        }
-    );
+const updateListDOM = (todoList: TodoList): Array<HTMLElement> => {
+    const out = todoList.map((val: TodoItem, idx: number): HTMLElement => {
+        return generateItem(todoList, val, idx);
+    });
     return out;
 };
 
-const controller = (projects: ProjectList): void => {
+const controller = (todoList: TodoList): void => {
     documentElements.list.textContent = "";
-    updateListDOM(projects[0]).forEach((el) =>
+    updateListDOM(todoList).forEach((el) =>
         documentElements.list.appendChild(el)
     );
     documentElements.button.onclick = () => {
         if (!documentElements.titleInput.value) return;
         const newItem: TodoItem = buildItem();
-        const stateProject: Project = addElementToProject(projects[0], newItem);
-        console.log(stateProject.todoList);
+        const stateList: TodoList = addElementToList(todoList, newItem);
         documentElements.titleInput.value = "";
-        controller([stateProject]);
+        controller(stateList);
     };
 };
 
@@ -93,7 +80,7 @@ export {
     documentElements,
     buildItem,
     updateListDOM,
-    addElementToProject,
-    removeElementFromProject,
+    addElementToList,
+    removeElementFromList,
     controller,
 };

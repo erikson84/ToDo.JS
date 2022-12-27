@@ -1,5 +1,6 @@
 type Priority = "high" | "normal" | "low";
 type Note = string;
+type Project = string;
 
 type ChecklistItem = {
     description: string;
@@ -29,6 +30,7 @@ type TodoItem = {
     done: boolean;
     checklist: Checklist;
     note: Note;
+    project: Project;
 };
 
 type TodoList = Array<TodoItem>;
@@ -40,7 +42,8 @@ const todoItemFactory = (
     priority: Priority = "normal",
     done: boolean = false,
     checklist: Checklist = [],
-    note: Note = ""
+    note: Note = "",
+    project: Project = ""
 ): TodoItem => {
     return {
         title,
@@ -50,26 +53,7 @@ const todoItemFactory = (
         done,
         checklist,
         note,
-    };
-};
-
-type Project = {
-    title: string;
-    todoList: TodoList;
-    description?: string;
-};
-
-type ProjectList = Array<Project>;
-
-const projectFactory = (
-    title: string,
-    todoList: TodoList = [],
-    description?: string
-): Project => {
-    return {
-        title,
-        todoList,
-        description,
+        project,
     };
 };
 
@@ -104,6 +88,15 @@ const applyFieldFunction = <T, K extends keyof T>(
     return { ...item, [field]: fn(item[field]) };
 };
 
+const applyItemFunction = <T>(
+    idx: number,
+    fn: (input: T) => T,
+    itemList: T[]
+): T[] => {
+    const newItem = fn(itemList[idx]);
+    return [...itemList.slice(0, idx), newItem, ...itemList.slice(idx + 1)];
+};
+
 export {
     Note,
     Priority,
@@ -112,14 +105,13 @@ export {
     TodoItem,
     TodoList,
     Project,
-    ProjectList,
     checklistItemFactory,
     todoItemFactory,
-    projectFactory,
     toggleItem,
     changePriority,
     changeDueDate,
     addItem,
     removeItem,
     applyFieldFunction,
+    applyItemFunction,
 };

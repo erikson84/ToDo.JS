@@ -1,12 +1,6 @@
-import { TodoItem, projectFactory, ProjectList } from "./modules/todoModel";
-import {
-    documentElements,
-    buildItem,
-    updateListDOM,
-    addElementToProject,
-    controller,
-} from "./modules/todoDOM";
+import { TodoList, TodoItem, todoItemFactory } from "./modules/todoModel";
+import { controller } from "./modules/todoDOM";
 
-const stateProject: ProjectList = [projectFactory("Default")];
+const stateList: TodoList = [];
 
-controller(stateProject);
+controller(stateList);
