@@ -53,6 +53,24 @@ const todoItemFactory = (
     };
 };
 
+type Project = {
+    title: string;
+    todoList: TodoList;
+    description?: string;
+};
+
+const projectFactory = (
+    title: string,
+    todoList: TodoList = [],
+    description?: string
+): Project => {
+    return {
+        title,
+        todoList,
+        description,
+    };
+};
+
 const toggleItem = <T extends { done: boolean }>(item: T): T => {
     return { ...item, done: !item.done };
 };
@@ -83,8 +101,10 @@ export {
     ChecklistItem,
     TodoItem,
     TodoList,
+    Project,
     checklistItemFactory,
     todoItemFactory,
+    projectFactory,
     toggleItem,
     changePriority,
     changeDueDate,

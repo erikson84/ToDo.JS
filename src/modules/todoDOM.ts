@@ -1,10 +1,10 @@
-import { Project } from "./project";
 import {
     TodoItem,
     TodoList,
     todoItemFactory,
     addItem,
     removeItem,
+    Project,
 } from "./todoModel";
 
 const documentElements = {
