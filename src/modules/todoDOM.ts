@@ -5,6 +5,8 @@ import {
     addItem,
     removeItem,
     Project,
+    ProjectList,
+    applyFieldFunction,
 } from "./todoModel";
 
 const documentElements = {
@@ -20,22 +22,24 @@ const buildItem = (): TodoItem => {
     );
 };
 
-const removeItemFromProject = (project: Project, e: MouseEvent): Project => {
+const removeElementFromProject = (project: Project, e: MouseEvent): Project => {
     const originDiv: HTMLElement = e.composedPath()[1] as HTMLElement;
     const idx: string | undefined = originDiv.dataset.index;
     if (!idx) return project;
-    const stateProject: Project = {
-        ...project,
-        todoList: removeItem(+idx, project.todoList),
-    };
+    const stateProject: Project = applyFieldFunction(
+        "todoList",
+        (x) => removeItem(+idx, x),
+        project
+    );
     return stateProject;
 };
 
-const addItemToProject = (project: Project, todoItem: TodoItem): Project => {
-    const stateProject: Project = {
-        ...project,
-        todoList: addItem(todoItem, project.todoList),
-    };
+const addElementToProject = (project: Project, todoItem: TodoItem): Project => {
+    const stateProject: Project = applyFieldFunction(
+        "todoList",
+        (x) => addItem(todoItem, x),
+        project
+    );
     return stateProject;
 };
 
@@ -53,8 +57,8 @@ const generateItem = (
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "✖";
     deleteButton.addEventListener("click", (ev: MouseEvent): void => {
-        const stateProject = removeItemFromProject(project, ev);
-        controller(stateProject);
+        const stateProject = removeElementFromProject(project, ev);
+        controller([stateProject]);
     });
     container.appendChild(deleteButton);
 
@@ -70,18 +74,18 @@ const updateListDOM = (project: Project): Array<HTMLElement> => {
     return out;
 };
 
-const controller = (project: Project): void => {
+const controller = (projects: ProjectList): void => {
     documentElements.list.textContent = "";
-    updateListDOM(project).forEach((el) =>
+    updateListDOM(projects[0]).forEach((el) =>
         documentElements.list.appendChild(el)
     );
     documentElements.button.onclick = () => {
         if (!documentElements.titleInput.value) return;
         const newItem: TodoItem = buildItem();
-        const stateProject: Project = addItemToProject(project, newItem);
+        const stateProject: Project = addElementToProject(projects[0], newItem);
         console.log(stateProject.todoList);
         documentElements.titleInput.value = "";
-        controller(stateProject);
+        controller([stateProject]);
     };
 };
 
@@ -89,6 +93,7 @@ export {
     documentElements,
     buildItem,
     updateListDOM,
-    addItemToProject,
+    addElementToProject,
+    removeElementFromProject,
     controller,
 };

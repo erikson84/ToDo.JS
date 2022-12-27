@@ -59,6 +59,8 @@ type Project = {
     description?: string;
 };
 
+type ProjectList = Array<Project>;
+
 const projectFactory = (
     title: string,
     todoList: TodoList = [],
@@ -94,6 +96,14 @@ const removeItem = <T>(idx: number, itemList: T[]): T[] => {
     return itemList.filter((_, index) => index != idx);
 };
 
+const applyFieldFunction = <T, K extends keyof T>(
+    field: K,
+    fn: (input: T[K]) => T[K],
+    item: T
+): T => {
+    return { ...item, [field]: fn(item[field]) };
+};
+
 export {
     Note,
     Priority,
@@ -102,6 +112,7 @@ export {
     TodoItem,
     TodoList,
     Project,
+    ProjectList,
     checklistItemFactory,
     todoItemFactory,
     projectFactory,
@@ -110,4 +121,5 @@ export {
     changeDueDate,
     addItem,
     removeItem,
+    applyFieldFunction,
 };
