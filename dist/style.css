@@ -76,6 +76,7 @@ div#list {
 
 .deleteButton {
     border: 0;
+    margin-left: 5px;
     width: 30px;
     height: 30px;
     border-radius: 20px;

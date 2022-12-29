@@ -7,6 +7,7 @@ import {
     applyFieldFunction,
     applyItemFunction,
     toggleItem,
+    changeDueDate,
 } from "./todoModel";
 
 const documentElements = {
@@ -18,7 +19,8 @@ const documentElements = {
 const buildItemFromForm = (): TodoItem => {
     return todoItemFactory(
         documentElements.titleInput.value as string,
-        documentElements.titleInput.value as string
+        documentElements.titleInput.value as string,
+        new Date()
     );
 };
 
@@ -57,6 +59,28 @@ const addItemTitle = (
     return container;
 };
 
+const addDate = (
+    container: HTMLElement,
+    todoItem: TodoItem,
+    todoList: TodoList,
+    index: number
+): HTMLElement => {
+    const dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.value = todoItem.dueDate.toISOString().split("T")[0];
+    dateInput.addEventListener("change", () => {
+        const stateList = applyItemFunction(
+            index,
+            () => changeDueDate(todoItem, new Date(dateInput.value)),
+            todoList
+        );
+        controller(stateList);
+    });
+    container.appendChild(dateInput);
+
+    return container;
+};
+
 const addButton = (
     container: HTMLElement,
     todoList: TodoList,
@@ -65,7 +89,7 @@ const addButton = (
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("deleteButton");
     deleteButton.textContent = "✖";
-    deleteButton.addEventListener("click", (ev: MouseEvent): void => {
+    deleteButton.addEventListener("click", (): void => {
         const stateList = removeItem(index, todoList);
         controller(stateList);
     });
@@ -86,6 +110,7 @@ const generateCompleteItem = (
     return pipe(container, [
         (cont: HTMLElement) => addCheckbox(cont, todoItem, todoList, index),
         (cont: HTMLElement) => addItemTitle(cont, todoItem),
+        (cont: HTMLElement) => addDate(cont, todoItem, todoList, index),
         (cont: HTMLElement) => addButton(cont, todoList, index),
     ]);
 };

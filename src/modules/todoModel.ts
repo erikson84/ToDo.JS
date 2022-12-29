@@ -13,7 +13,7 @@ type Checklist = Array<ChecklistItem>;
 const checklistItemFactory = (
     description: string,
     done: boolean,
-    dueDate?: Date
+    dueDate: Date
 ): ChecklistItem => {
     return {
         description,
@@ -25,7 +25,7 @@ const checklistItemFactory = (
 type TodoItem = {
     title: string;
     description: string;
-    dueDate?: Date;
+    dueDate: Date;
     priority: Priority;
     done: boolean;
     checklist: Checklist;
@@ -38,7 +38,7 @@ type TodoList = Array<TodoItem>;
 const todoItemFactory = (
     title: string,
     description: string,
-    dueDate?: Date,
+    dueDate: Date = new Date(),
     priority: Priority = "normal",
     done: boolean = false,
     checklist: Checklist = [],
