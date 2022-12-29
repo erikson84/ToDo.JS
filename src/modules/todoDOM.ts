@@ -8,6 +8,8 @@ import {
     applyItemFunction,
     toggleItem,
     changeDueDate,
+    Priority,
+    changePriority,
 } from "./todoModel";
 
 const documentElements = {
@@ -17,17 +19,50 @@ const documentElements = {
 };
 
 const buildItemFromForm = (): TodoItem => {
-    return todoItemFactory(
-        documentElements.titleInput.value as string,
-        documentElements.titleInput.value as string,
-        new Date()
-    );
+    return todoItemFactory(documentElements.titleInput.value as string);
 };
 
 const createItem = (index: number): HTMLElement => {
     const container = document.createElement("div");
     container.classList.add("itemList");
     container.dataset.index = index.toString();
+    return container;
+};
+
+const addPriorityDiv = (
+    container: HTMLElement,
+    todoItem: TodoItem,
+    todoList: TodoList,
+    index: number
+): HTMLElement => {
+    const priority = document.createElement("div");
+    priority.classList.add("priority");
+    switch (todoItem.priority) {
+        case "high":
+            priority.classList.toggle("high");
+            break;
+        case "low":
+            priority.classList.toggle("low");
+            break;
+        default:
+            break;
+    }
+    priority.addEventListener("click", () => {
+        const newPriority: Priority =
+            todoItem.priority == "normal"
+                ? "high"
+                : todoItem.priority == "high"
+                ? "low"
+                : "normal";
+        const stateList = applyItemFunction(
+            index,
+            (item) => changePriority(item, newPriority),
+            todoList
+        );
+        controller(stateList);
+    });
+    container.appendChild(priority);
+
     return container;
 };
 
@@ -68,10 +103,11 @@ const addDate = (
     const dateInput = document.createElement("input");
     dateInput.type = "date";
     dateInput.value = todoItem.dueDate.toISOString().split("T")[0];
+    dateInput.disabled = todoItem.done;
     dateInput.addEventListener("change", () => {
         const stateList = applyItemFunction(
             index,
-            () => changeDueDate(todoItem, new Date(dateInput.value)),
+            (item) => changeDueDate(item, new Date(dateInput.value)),
             todoList
         );
         controller(stateList);
@@ -108,6 +144,7 @@ const generateCompleteItem = (
 ): HTMLElement => {
     const container = createItem(index);
     return pipe(container, [
+        (cont: HTMLElement) => addPriorityDiv(cont, todoItem, todoList, index),
         (cont: HTMLElement) => addCheckbox(cont, todoItem, todoList, index),
         (cont: HTMLElement) => addItemTitle(cont, todoItem),
         (cont: HTMLElement) => addDate(cont, todoItem, todoList, index),

@@ -37,7 +37,7 @@ type TodoList = Array<TodoItem>;
 
 const todoItemFactory = (
     title: string,
-    description: string,
+    description: string = "",
     dueDate: Date = new Date(),
     priority: Priority = "normal",
     done: boolean = false,
