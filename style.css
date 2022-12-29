@@ -59,6 +59,10 @@ div#list {
     max-height: 37px;
 }
 
+.itemList:hover {
+    background-color: gainsboro;
+}
+
 .itemList > span {
     flex: 1;
     text-align: center;
